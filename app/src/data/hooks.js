@@ -1,7 +1,18 @@
 import { useEffect, useRef, useReducer } from 'react';
+/**
+  Custom hook to fetch and cache data, using this to fetch data initialy and then based upon the
+  returned status using the cached data in univeristies.js file.
+
+  ** I took the memoization approach to cache data, so that i don't have to fetch the endpoint after fetching initially,
+  Storing the result of expensive fetch calls will save the users some load time, therefore, increasing overall performance
+
+ */
+
+
+
 
 export const useFetch = (url) => {
-	
+	// using useRef to retrieve mutable values at ease and its value persists throughout the component’s lifecycle.
 	const cache = useRef({});
 
 	const initialState = {
@@ -9,7 +20,7 @@ export const useFetch = (url) => {
 		error: null,
 		data: [],
 	};
-
+	// using useReducer to check what type of action need to perform, and set the appropriate values to state based on that
 	const [state, dispatch] = useReducer((state, action) => {
 		switch (action.type) {
 			case 'FETCHING':
@@ -34,6 +45,7 @@ export const useFetch = (url) => {
 				dispatch({ type: 'FETCHED', payload: data });
 			} else {
 				try {
+					// data fetch request
 					const response = await fetch(url);
 					const data = await response.json();
 					cache.current[url] = data;

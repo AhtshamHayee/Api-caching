@@ -6,6 +6,7 @@ const UniversityDetails = (props) => {
     const [geoEncoding, setGeoEncoding] = useState([])
     const [isLoading, setIsLoading] = useState(true)
 
+    // function to fetch the geoEncoding data
     const getGeoEncoding = async () => {
         try {
             await fetch(`https://nominatim.geocoding.ai/search.php?q=${uniDetails.name}`)
@@ -20,6 +21,7 @@ const UniversityDetails = (props) => {
             setIsLoading(false)
         }
     }
+    // functon to take user to the desired location 
     const _gotoMap = (item) => {
         const { lat, lon } = item
         if (Platform.OS == 'android') {
@@ -92,7 +94,7 @@ const UniversityDetails = (props) => {
                         <Text style={{
                             textAlign: 'center',
                         }}>
-                            {'Licence : ' + item.licence}
+                            {'License : ' + item.licence}
 
                         </Text>
                         <TouchableOpacity onPress={() => _gotoMap(item)}

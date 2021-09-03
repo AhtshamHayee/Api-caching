@@ -12,8 +12,9 @@ const Universities = (props) => {
     const [_uni, setUni] = useState('');
     const [_country, setCont] = useState('');
 
-
+    // api url to query univeristies data along with optional params
     const url = `http://universities.hipolabs.com/search?${country ? 'country=' + country : ''}${university ? '&name=' + university : ''}`;
+    //Initial data fetch
     const { status, data, error } = useFetch(url);
 
     const _renderRowItem = ({ item, index }) => {

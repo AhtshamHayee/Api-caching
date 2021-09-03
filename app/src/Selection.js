@@ -47,6 +47,7 @@ class Selection extends Component {
     render() {
         return (
             <View style={styles.container}>
+                <Text style={{marginBottom:60}}>Please Select One...</Text>
                 <TouchableOpacity onPress={() => {
                               this.props.navigation.navigate('Universities')  
                             }}

@@ -79,7 +79,7 @@ const MainStack = () => {
                 initialRouteName={'Splash'}>
                 <InitialStack.Screen name={'Splash'} component={Splash} options={{headerShown:false}}/>
                 <InitialStack.Screen name={'Selection'} component={Selection} />
-                <InitialStack.Screen name={'Universities'} component={Universities} />
+                <InitialStack.Screen name={'Universities'} component={Universities} options={{headerBackVisible:true}}/>
                 <InitialStack.Screen name={'UniversityDetails'} component={UniversityDetails} options={{title:'Details',headerBackVisible:true}} />
                 <InitialStack.Screen name={'BottomTabComp'} component={BottomTabComp} options={{headerShown:false}}/>
             </InitialStack.Navigator>

@@ -1,10 +1,24 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Dimensions, Image, TouchableOpacity, StyleSheet, FlatList } from 'react-native';
+import { View, Text, Dimensions, Image, TouchableOpacity, StyleSheet, FlatList,Platform } from 'react-native';
 import CalendarStrip from 'react-native-calendar-strip'
 
 const approveColor = '#79C179';
 const pendingColor = '#FFA233'
 const Calendar = () => {
+  const [date, setDate] = useState(new Date())
+  var month = new Array();
+  month[0] = "Jan";
+  month[1] = "Feb";
+  month[2] = "March";
+  month[3] = "April";
+  month[4] = "May";
+  month[5] = "June";
+  month[6] = "July";
+  month[7] = "Aug";
+  month[8] = "Sept";
+  month[9] = "Oct";
+  month[10] = "Nov";
+  month[11] = "Dec";
   let dummy = [
     {
       id: 0,
@@ -61,7 +75,7 @@ const Calendar = () => {
             return (
               <View key={i} style={{ marginTop: 5 }}>
                 <View style={{ height: 100, width: '100%', flexDirection: 'row', }}>
-                  <View style={{ width: '30%', }}>
+                  <View style={{ width: '25%', }}>
                     <View style={{ flexDirection: 'row', marginTop: '40%' }}>
                       <View style={{}}>
                         <View style={{
@@ -78,10 +92,8 @@ const Calendar = () => {
                             height: 15,
                             width: 15,
                             borderRadius: 100,
-                            // borderWidth: 1,
                             justifyContent: 'center',
                             alignItems: 'center',
-                            // borderColor: 'red'
                             backgroundColor: data.status == 'Approve' ? approveColor : data.status == 'Pending' ? pendingColor : '#605270'
 
                           }}>
@@ -95,7 +107,6 @@ const Calendar = () => {
                           marginLeft: '28%',
                           borderColor: '#C9C9C9',
                           borderWidth: 1,
-                          //  backgroundColor: '#C9C9C9',
                           width: '2%',
                         }}>
 
@@ -117,21 +128,19 @@ const Calendar = () => {
                   {/* card  */}
                   <View style={{ width: '100%', height: 100 }}>
 
-                    <View style={{ height: 100, backgroundColor: data.status == 'Approve' ? approveColor : data.status == 'Pending' ? pendingColor : '#605270', paddingHorizontal: '5%', width: '70%', borderRadius: 10 }}>
+                    <View style={{ height: 100, backgroundColor: data.status == 'Approve' ? approveColor : data.status == 'Pending' ? pendingColor : '#605270', paddingHorizontal: '5%', width: '75%', borderRadius: 10 }}>
                       <View style={{ height: '10%' }} />
                       <View style={{ height: '20%', flexDirection: 'row', width: '100%', alignItems: 'center', }}>
                         <Image resizeMode='contain' source={require('../images/pin.png')} style={{ height: 15, width: 15, tintColor: '#ffffff' }} />
-                        <Text style={{ fontSize: 10, color: '#ffffff' }}>5519 NE Skidmore Portland</Text>
+                        <Text style={{ fontSize: 12, color: '#ffffff', fontWeight: 'bold' }}>5519 NE Skidmore Portland</Text>
                       </View>
                       <View style={{ flexDirection: 'row', height: '35%', alignItems: 'center' }}>
                         <Image resizeMode='contain' source={require('../images/profile.png')} style={{ height: 30, width: 30 }} />
-                        <Text style={{ fontSize: 10, color: '#ffffff', marginLeft: '5%' }}>Rick Adams</Text>
+                        <Text style={{ fontSize: 12, color: '#ffffff', marginLeft: '5%', fontWeight: 'bold' }}>Rick Adams</Text>
                       </View>
                       <View style={{ height: '5%' }} />
-
-                      <TouchableOpacity style={{ backgroundColor: '#ffffff', borderRadius: 10, justifyContent: 'center', alignItems: 'center', width: '70%' }}>
-                        <Text style={{ fontSize: 15, color: data.status == 'Approve' ? approveColor : data.status == 'Pending' ? pendingColor : '#605270', paddingVertical: 1 }}>{data.status}</Text>
-
+                      <TouchableOpacity style={{ backgroundColor: '#ffffff', borderRadius: 10, justifyContent: 'center', alignItems: 'center', alignSelf: 'flex-start', paddingHorizontal: 5 }}>
+                        <Text style={{ fontSize: 12, color: data.status == 'Approve' ? approveColor : data.status == 'Pending' ? pendingColor : '#605270', paddingVertical: 2, fontWeight: 'bold', maxWidth: '70%' }}>{data.status}</Text>
                       </TouchableOpacity>
                     </View>
 
@@ -151,17 +160,29 @@ const Calendar = () => {
 
   return (
     <View style={styles.container}>
-      <View style={{ marginHorizontal: 20 }}>
+      <View style={{ flexDirection: 'row', marginTop: 60, alignItems: 'center' }}>
+        <Text style={{ alignSelf: 'center',marginHorizontal: Platform.OS == 'ios' ? 0:30 ,marginRight: Platform.OS == 'ios' ? 5:0, color: '#38274C', fontWeight: 'bold', fontSize: 15 }}>{month[new Date(date).getMonth()]}</Text>
         <CalendarStrip
-          calendarHeaderContainerStyle={{ height: 0, width: 0 }}
-          headerText={' '}
-          calendarColor={'#E5E5E5'}
-          style={{ height: 100, }}
+          showMonth={false}
+          highlightDateContainerStyle={{ width: 45, backgroundColor: '#38274C', borderRadius: 0, borderBottomRightRadius: 10, borderBottomLeftRadius: 10 }}
+          dateNumberStyle={{ color: '#B3B4B5', paddingVertical: 5 }}
+          dateNameStyle={{ color: '#B3B4B5', paddingVertical: 5 }}
+          highlightDateNumberStyle={{ color: '#ffffff' }}
+          maxDayComponentSize={62}
+          minDayComponentSize={62}
+          responsiveSizingOffset={-10}
+          highlightDateNameStyle={{ color: '#ffffff' }}
+          style={{ height: 100, width: 320 }}
+          onDateSelected={(date) => setDate(date)}
+          iconLeft={null}
+          iconRight={null}
+          scrollable
         />
+
+      </View>
+      <View style={{ marginHorizontal: 20 }}>
+
         <FlatList
-          contentContainerStyle={{
-            flex: 1
-          }}
           data={dummy}
           renderItem={_renderRowItem}
           keyExtractor={(item, index) => 'key' + index}
@@ -184,5 +205,3 @@ const styles = StyleSheet.create({
 });
 
 export default Calendar;
-
-
