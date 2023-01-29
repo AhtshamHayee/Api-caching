@@ -1,4 +1,3 @@
-# System_Plus_React_Native_Assessment
 
 ## Project Structure:
 
